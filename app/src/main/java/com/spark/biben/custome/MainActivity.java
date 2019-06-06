@@ -1,13 +1,26 @@
 package com.spark.biben.custome;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.spark.biben.custome.base.BaseActivity;
+import com.spark.biben.custome.base.BasePresenter;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends BaseActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId(){
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void loadData(){
+    }
+
+    @Override
+    protected void initView(){
+        setTitleToolbar("你好", true);
+    }
+
+    @Override
+    protected BasePresenter createPresenter(){
+        return null;
     }
 }

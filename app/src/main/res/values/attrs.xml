@@ -5,4 +5,13 @@
         <attr name="pmax" format="integer"/>
         <attr name="pback" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="yi_yun_stepper">
+        <attr name="lineColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="lineHeight" format="dimension" />
+        <attr name="drawablePadding" format="dimension" />
+        <attr name="commonDrawable" format="reference"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="common_icon" format="reference"/>
+    </declare-styleable>
 </resources>

@@ -1,4 +1,4 @@
-package com.spark.biben.custome;
+package com.spark.biben.custome.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.spark.biben.custome.R;
+import com.spark.biben.custome.utils.WonderfulDpPxUtils;
 
 public class CustomeSeekbar extends LinearLayout implements SeekBar.OnSeekBarChangeListener{
 
