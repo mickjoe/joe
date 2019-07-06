@@ -1,10 +1,13 @@
 package com.spark.biben.custome;
 
+import android.util.Log;
+
 import com.spark.biben.custome.base.BaseActivity;
-import com.spark.biben.custome.base.BasePresenter;
+import com.spark.biben.custome.entity.Areas;
+import com.spark.biben.custome.mvp.presenter.MainActPresenter;
+import com.spark.biben.custome.mvp.view.MainView;
 
-public class MainActivity extends BaseActivity{
-
+public class MainActivity extends BaseActivity<MainView, MainActPresenter> implements MainView{
     @Override
     protected int getLayoutId(){
         return R.layout.activity_main;
@@ -12,6 +15,7 @@ public class MainActivity extends BaseActivity{
 
     @Override
     protected void loadData(){
+        presenter.getAreas(MainActivity.class.getSimpleName());
     }
 
     @Override
@@ -20,7 +24,25 @@ public class MainActivity extends BaseActivity{
     }
 
     @Override
-    protected BasePresenter createPresenter(){
-        return null;
+    protected MainActPresenter createPresenter(){
+        return new MainActPresenter(this);
+    }
+
+    @Override
+    public void getareasSuccess(Areas areas){
+        Log.e("zhong", "getareasSuccess: "+areas.getData().get(0).getAreaCode());
+    }
+
+    @Override
+    public void getareasFailed(int code, String msg){
+        Log.e("zhong", "getareasSuccess: "+msg);
+    }
+
+    @Override
+    public void hideLoadingPopup(){
+    }
+
+    @Override
+    public void displayLoadingPopup(){
     }
 }

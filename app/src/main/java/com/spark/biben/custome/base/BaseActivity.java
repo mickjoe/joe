@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
 import com.spark.biben.custome.R;
 import com.spark.biben.custome.init_interface.BackEventListener;
 import com.spark.biben.custome.utils.ActivityCollection;
@@ -123,9 +124,10 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
     @Override
     protected void onDestroy(){
-        super.onDestroy();
         if(presenter != null && presenter.isViewAttached()){
             presenter.detachView();
         }
+        OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
+        super.onDestroy();
     }
 }

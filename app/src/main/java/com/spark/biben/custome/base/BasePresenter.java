@@ -10,28 +10,32 @@ public abstract class BasePresenter<V>{
     // 弱引用
     protected WeakReference<V> mViewRef;
 
+    public BasePresenter(V v){
+        this.mView = v;
+    }
+
     /**
      * 绑定View
      *
      * @param view
      */
     public void attach(final V view){
+        if(view != null){
+            mViewRef = new WeakReference<V>(mView);
+        }
         //动态代理
         mView = (V) Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(), new InvocationHandler(){
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable{
                 //在View层显示数据之前用户可能退出了View层的页面，会在Activity的onDestroy()方法中会把mView置为null
                 //由于View层都是接口，这里采用了动态代理，如果在View层显示数据之前用户可能退出了View层的页面，返回null的话，onSuccess()方法不会执行
-                if(mView == null){
+                if(mViewRef == null || mViewRef.get() == null){
                     return null;
                 }
                 //每次调用View层接口的方法，都会执行这里
                 return method.invoke(view, args);
             }
         });
-        if(mView != null){
-            mViewRef = new WeakReference<V>(mView);
-        }
     }
 
     /**
@@ -40,7 +44,7 @@ public abstract class BasePresenter<V>{
      * @return t
      */
     protected V getBindView(){
-        return mViewRef.get();
+        return mView;
     }
 
     /**
@@ -49,7 +53,7 @@ public abstract class BasePresenter<V>{
      * @return boolean
      */
     public boolean isViewAttached(){
-        return mViewRef != null && mViewRef.get() != null;
+        return mView != null && mViewRef != null && mViewRef.get() != null;
     }
 
     /**
@@ -57,6 +61,7 @@ public abstract class BasePresenter<V>{
      */
     public void detachView(){
         if(mViewRef != null){
+            mView = null;
             mViewRef.clear();
             mViewRef = null;
         }
