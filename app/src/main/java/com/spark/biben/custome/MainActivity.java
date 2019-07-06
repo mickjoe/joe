@@ -38,11 +38,5 @@ public class MainActivity extends BaseActivity<MainView, MainActPresenter> imple
         Log.e("zhong", "getareasSuccess: "+msg);
     }
 
-    @Override
-    public void hideLoadingPopup(){
-    }
 
-    @Override
-    public void displayLoadingPopup(){
-    }
 }

@@ -1,14 +1,19 @@
 package com.spark.biben.custome.base;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -21,6 +26,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     private Activity base;
     private TextView titleCenter;
     protected T presenter;
+    private PopupWindow loadingPopup;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -33,7 +39,12 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             presenter = createPresenter();
             presenter.attach((V) this);
         }
-        loadData();
+        getWindow().getDecorView().post(new Runnable(){
+            @Override
+            public void run(){
+                loadData();
+            }
+        });
     }
 
     private void initBaseView(){
@@ -129,5 +140,31 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         }
         OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
         super.onDestroy();
+    }
+
+    public void hideLoadingPopup(){
+        try{
+            if(loadingPopup != null && this.loadingPopup.isShowing()){
+                this.loadingPopup.dismiss();
+            }
+        }catch(Exception e){
+        }
+    }
+
+    public void displayLoadingPopup(){
+        //初始化加载dialog
+        if(loadingPopup == null){
+            View loadingView = getLayoutInflater().inflate(R.layout.pop_loading, null);
+            loadingPopup = new PopupWindow(loadingView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            loadingPopup.setFocusable(true);
+            loadingPopup.setClippingEnabled(false);
+            loadingPopup.setBackgroundDrawable(new ColorDrawable());
+        }
+        try{
+            loadingPopup.showAtLocation(base.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+        }catch(Exception e){
+            Log.e("zhong", "displayLoadingPopup: " + e.toString());
+            e.printStackTrace();
+        }
     }
 }

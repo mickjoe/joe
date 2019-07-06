@@ -13,14 +13,17 @@ public class MainActPresenter extends BasePresenter<MainView>{
     }
 
     public void getAreas(String tag){
+        getBindView().displayLoadingPopup();
         DataModel.getDataModelInstance().getAreas(tag, new DataCallbackListener<Areas>(){
             @Override
             public void onsuccess(Areas areas){
+                getBindView().hideLoadingPopup();
                 getBindView().getareasSuccess(areas);
             }
 
             @Override
             public void onfailed(int code, String msg){
+                getBindView().hideLoadingPopup();
                 getBindView().getareasFailed(code, msg);
             }
         });
