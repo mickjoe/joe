@@ -12,12 +12,19 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 
 public class MyApp extends Application{
+    private static MyApp app;
     @Override
     public void onCreate(){
         super.onCreate();
+        app = this;
         initOkgo();
     }
-
+    /**
+     * 获取程序的Application对象
+     */
+    public static MyApp getApp() {
+        return app;
+    }
     private void initOkgo(){
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(CONSTANT_CLASS.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);

@@ -163,7 +163,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         try{
             loadingPopup.showAtLocation(base.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
         }catch(Exception e){
-            Log.e("zhong", "displayLoadingPopup: " + e.toString());
             e.printStackTrace();
         }
     }
