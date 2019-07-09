@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +20,23 @@ import com.spark.biben.custome.R;
 import com.spark.biben.custome.init_interface.BackEventListener;
 import com.spark.biben.custome.utils.ActivityCollection;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity{
     private Toolbar titleToolbar;
     private Activity base;
     private TextView titleCenter;
     protected T presenter;
     private PopupWindow loadingPopup;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         base = this;
         initBaseView();
+        unbinder = ButterKnife.bind(this);
         ActivityCollection.addActivity(base);
         initView();
         if(createPresenter() != null){
@@ -139,6 +143,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             presenter.detachView();
         }
         OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
+        unbinder.unbind();
         super.onDestroy();
     }
 

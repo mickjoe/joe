@@ -14,6 +14,9 @@ import android.widget.PopupWindow;
 
 import com.spark.biben.custome.R;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment{
     private T presenter;
     /**
@@ -25,7 +28,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     private View rootView;
     private PopupWindow loadingPopup;
     private BaseActivity mBaseActivity;
-
+    private Unbinder unbinder;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
             presenter = createPresenter();
             presenter.attach((V) this);
         }
+
     }
 
     @Override
@@ -44,6 +48,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+         unbinder = ButterKnife.bind(this, rootView);
         isInit = true;
         initView();
         tryToLoadData();
@@ -115,6 +120,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         if(presenter != null && presenter.isViewAttached()){
             presenter.detachView();
         }
+        unbinder.unbind();
         super.onDestroy();
     }
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">custome</string>
+    <string name="main_one">第一页</string>
+    <string name="main_two">第二页</string>
+    <string name="main_three">第三页</string>
+    <string name="main_four">第四页</string>
 </resources>

@@ -11,11 +11,19 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
     </style>
     
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    <style name="liner_weight_1">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+    
     <declare-styleable name="ShadowLayout">
         <attr name="sl_cornerRadius" format="dimension"/>
         <attr name="sl_shadowRadius" format="dimension"/>
