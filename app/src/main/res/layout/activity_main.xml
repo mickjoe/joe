@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_menu_h"
         android:gravity="center_vertical"
-        android:background="@color/white"
+        android:background="@drawable/back_line_top"
         android:orientation="horizontal">
         
         <View style="@style/liner_weight_1" />

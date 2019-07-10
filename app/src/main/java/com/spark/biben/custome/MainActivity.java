@@ -1,6 +1,7 @@
 package com.spark.biben.custome;
 
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
@@ -53,10 +54,12 @@ public class MainActivity extends BaseActivity<MainView, MainActPresenter> imple
 
     @Override
     public void getareasSuccess(Areas areas){
+        Log.e("zhong", "getareasSuccess: " );
     }
 
     @Override
     public void getareasFailed(int code, String msg){
+        Log.e("zhong", "getareasFailed: " );
     }
 
     public void initFragment(){
@@ -110,7 +113,7 @@ public class MainActivity extends BaseActivity<MainView, MainActPresenter> imple
                 }
                 //2.添加to
                 if(to != null){
-                    ft.add(R.id.fl_main, to).commit();
+                    ft.add(R.id.fl_main, to).commitAllowingStateLoss();
                 }
             }else{ //to已经被添加
                 //1.from隐藏
@@ -119,7 +122,7 @@ public class MainActivity extends BaseActivity<MainView, MainActPresenter> imple
                 }
                 //2.显示to
                 if(to != null){
-                    ft.show(to).commit();
+                    ft.show(to).commitAllowingStateLoss();
                 }
             }
         }

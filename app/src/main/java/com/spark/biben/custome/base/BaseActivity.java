@@ -164,6 +164,12 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             loadingPopup.setFocusable(true);
             loadingPopup.setClippingEnabled(false);
             loadingPopup.setBackgroundDrawable(new ColorDrawable());
+            loadingPopup.setOnDismissListener(new PopupWindow.OnDismissListener(){
+                @Override
+                public void onDismiss(){
+                    OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
+                }
+            });
         }
         try{
             loadingPopup.showAtLocation(base.getWindow().getDecorView(), Gravity.CENTER, 0, 0);

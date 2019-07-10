@@ -9,4 +9,5 @@
     <color name="normal_text_color">#222222</color>
     <color name="colorTextNormal">#98a0b3</color>
     <color name="white">#ffffff</color>
+    <color name="color_eeee">#eeeeee</color>
 </resources>

@@ -64,8 +64,10 @@ public class ConvertUtils{
                             T t = gson.fromJson(response.body(), classOfT);
                             callback.convertSuccess(t);
                         }else{
-                            callback.convertError(object.optInt("code"), object.optString("string"));
+                            callback.convertSuccess((T)object.optString("message"));
                         }
+                    }else {
+                        callback.convertError(object.optInt("code"), object.optString("message"));
                     }
                 }catch(Exception e){
                     e.printStackTrace();
@@ -77,6 +79,7 @@ public class ConvertUtils{
                 super.onError(response);
                 callback.convertError(CONSTANT_CLASS.SOCKET_TIME_OUT, CONSTANT_CLASS.REQUEST_FAILED);
             }
+
         });
     }
 }
