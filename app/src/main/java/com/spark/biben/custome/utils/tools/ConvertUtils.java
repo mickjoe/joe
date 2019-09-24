@@ -36,11 +36,15 @@ public class ConvertUtils{
                             T t = gson.fromJson(object.optString("data"), classOfT);
                             callback.convertSuccess(t);
                         }else{
-                            callback.convertError(object.optInt("code"), object.optString("string"));
+                            callback.convertSuccess((T)object.optString("message"));
                         }
+                    }else {
+                        callback.convertError(object.optInt("code"), object.optString("message"));
                     }
                 }catch(Exception e){
+                    callback.convertError(CONSTANT_CLASS.DATA_ERRO, CONSTANT_CLASS.DATA_ERRO_TIP);
                     e.printStackTrace();
+
                 }
             }
 

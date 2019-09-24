@@ -12,13 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import com.lzy.okgo.OkGo;
 import com.spark.biben.custome.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment{
-    private T presenter;
+    protected T presenter;
     /**
      * 是否正在加载数据
      */
@@ -29,9 +30,11 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     private PopupWindow loadingPopup;
     private BaseActivity mBaseActivity;
     private Unbinder unbinder;
+    private Fragment base;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        base = this;
         if(createPresenter() != null){
             presenter = createPresenter();
             presenter.attach((V) this);
@@ -83,6 +86,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     public void onDestroyView(){
         isInit = false;
         isLoad = false;
+        OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
         super.onDestroyView();
     }
 
