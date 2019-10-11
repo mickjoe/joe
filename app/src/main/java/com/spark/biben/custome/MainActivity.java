@@ -1,5 +1,6 @@
 package com.spark.biben.custome;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -13,6 +14,7 @@ import com.spark.biben.custome.fragment.OneFragment;
 import com.spark.biben.custome.fragment.ThreeFragment;
 import com.spark.biben.custome.fragment.TwoFragment;
 import com.spark.biben.custome.mvp.presenter.MainActPresenter;
+import com.spark.biben.custome.mvp.ui.TestActivity;
 import com.spark.biben.custome.mvp.view.MainView;
 
 import java.util.ArrayList;
@@ -85,6 +87,7 @@ public class MainActivity extends BaseActivity<MainView, MainActPresenter> imple
                     break;
                 case R.id.rb_four://four
                     position = 3;
+                    startActivity(new Intent(MainActivity.this,TestActivity.class));
                     break;
                 default:
                     position = 0;

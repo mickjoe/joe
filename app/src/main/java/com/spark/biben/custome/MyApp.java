@@ -2,6 +2,9 @@ package com.spark.biben.custome;
 
 import android.app.Application;
 
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -17,8 +20,15 @@ public class MyApp extends Application{
     public void onCreate(){
         super.onCreate();
         app = this;
+        initrefresh();
         initOkgo();
     }
+
+    private void initrefresh(){
+        TwinklingRefreshLayout.setDefaultHeader(ProgressLayout.class.getName());
+        TwinklingRefreshLayout.setDefaultFooter(BallPulseView.class.getName());
+    }
+
     /**
      * 获取程序的Application对象
      */

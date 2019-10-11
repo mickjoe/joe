@@ -121,7 +121,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
      *
      * @param isNavigation
      */
-    protected void setToolbarNavigation(boolean isNavigation){
+    protected void setToolbarNavigation(int icon,boolean isNavigation){
+        titleToolbar.setNavigationIcon(icon);
         if(isNavigation){
             titleToolbar.setNavigationOnClickListener(new View.OnClickListener(){
                 @Override
@@ -137,7 +138,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
      *
      * @param isNavigation
      */
-    protected void setToolbarNavigation(boolean isNavigation, final BackEventListener listener){
+    protected void setToolbarNavigation(int icon,boolean isNavigation, final BackEventListener listener){
         if(isNavigation){
             titleToolbar.setNavigationOnClickListener(new View.OnClickListener(){
                 @Override
