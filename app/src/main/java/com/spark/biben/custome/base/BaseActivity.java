@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.spark.biben.custome.R;
 import com.spark.biben.custome.init_interface.BackEventListener;
@@ -30,11 +31,17 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     protected T presenter;
     private PopupWindow loadingPopup;
     private Unbinder unbinder;
+    private ImmersionBar immersionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         base = this;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            if (isImmersionBarEnabled()) {
+                initImmersionBar();
+            }
+        }
         initBaseView();
         unbinder = ButterKnife.bind(this);
         ActivityCollection.addActivity(base);
@@ -63,6 +70,26 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         titleCenter = view.findViewById(R.id.tv_base_title);
     }
 
+    /**
+     * 子类重写实现扩展设置
+     */
+    protected void initImmersionBar() {
+        try {
+            immersionBar = ImmersionBar.with(this);
+            immersionBar.statusBarColor(R.color.colorPrimary)
+                    .init();
+        } catch (Exception e) {
+            e.printStackTrace();
+            immersionBar = null;
+        }
+    }
+
+    /**
+     * 是否启用沉浸式
+     */
+    protected boolean isImmersionBarEnabled() {
+        return false;
+    }
     protected abstract int getLayoutId();
 
     protected abstract void loadData();
@@ -143,6 +170,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             presenter.detachView();
         }
         OkGo.getInstance().cancelTag(base.getClass().getSimpleName());
+        ImmersionBar.with(this).destroy(); //必须调用该方法，防止内存泄漏
         unbinder.unbind();
         super.onDestroy();
     }
