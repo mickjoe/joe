@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
+//Android系统为了跟iOS不一样，当界面OverScroll的时候会显示一个阴影。
+// 为了达到更好的显示效果，最好禁用系统的overScroll，
+// 给RecyclerView添加android:overScrollMode="never"。
 public class TestActivity extends BaseActivity{
     @BindView(R.id.tv_rv)
     RecyclerView tvRv;
